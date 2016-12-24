@@ -6,27 +6,37 @@ public class ChipCore : MonoBehaviour
 	public int MatPosX;
 	public int MatPosY;
 	public int Type;
+	public float Speed = 5;
 	private GameObject Self;
-	//private GameObject fieldus; 
 	private GameObject Chip;
-	private Vector3 temp;
+	private bool Match=false;
+	public Vector3 temp;
 	
 	void Start()
 	{
-		//fieldus = GameObject.FindGameObjectWithTag ("Fieldus");
 		Self = gameObject;
 	}
 	
 	void Update()
 	{
-		Self.transform.position = new Vector3 (MatPosX,0,MatPosY);
-		//Self.transform.position = Vector3.Lerp (temp,new Vector3(MatPosX,0,MatPosY),Time.deltaTime);
+		float step = Speed * Time.deltaTime;
+		Self.transform.position=Vector3.MoveTowards(transform.position, new Vector3 (MatPosX,0,MatPosY), step);
+		//Self.transform.position = new Vector3 (MatPosX,0,MatPosY);
 	}
 	
 	public void Move(int InX, int InY)
 	{
 		SetPosX(InX);
 		SetPosY(InY);
+	}
+	
+	public void SetMFlag(bool flag)
+	{
+		Match=flag;
+	}
+	public bool GetMFlag()
+	{
+		return Match;
 	}
 	
 	public void SetPosX(int InX)
@@ -55,5 +65,4 @@ public class ChipCore : MonoBehaviour
 	{
 		return MatPosY;
 	}
-	
 }
